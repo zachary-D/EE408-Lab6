@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">EE408 Calculator</string>
+    <string name="hello_world">click buttons below to enter arithmetic expressions</string>
+</resources>
