@@ -63,15 +63,29 @@ public class MainActivity extends AppCompatActivity {
                     display.setText("");
                 }
                 if (op != -1 && !op1Set) {
-                    operand1 = Integer.parseInt(display.getText().toString());
-                    op1Set = true;
-                    display.setText("");
+                    try {
+                        operand1 = Integer.parseInt(display.getText().toString());
+                        op1Set = true;
+                        display.setText("");
+                    }
+                    catch(NumberFormatException e)
+                    {
+                        statusBar.setText("Number too long to preform computations with!");
+                        operand1 = 0;
+                        display.setText("0");
+                        return;
+                    }
+
                 }
 
                 String text;
                 text = display.getText().toString() + b.getText().toString();
+
+                //Check for leading 0's
                 if(text.matches("0[1-9]")) text = text.substring(1);
+
                 display.setText(text);
+                statusBar.setText("");
             }
         };
 
@@ -121,41 +135,48 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 if (op1Set) {
-                    int result;
-                    switch (op) {
-                        case (0):
-                            // note: need to expand to handle -,*, and /!!!
-                            result = operand1 + Integer.parseInt(display.getText().toString());
-                            break;
+                    try {
+                        int result;
+                        switch (op) {
+                            case (0):
+                                // note: need to expand to handle -,*, and /!!!
+                                result = operand1 + Integer.parseInt(display.getText().toString());
+                                break;
 
-                        case (1):
-                            result = operand1 - Integer.parseInt(display.getText().toString());
-                            break;
+                            case (1):
+                                result = operand1 - Integer.parseInt(display.getText().toString());
+                                break;
 
-                        case (2):
-                            result = operand1 * Integer.parseInt(display.getText().toString());
-                            break;
+                            case (2):
+                                result = operand1 * Integer.parseInt(display.getText().toString());
+                                break;
 
-                        case (3):
-                            int divisor = Integer.parseInt(display.getText().toString());
+                            case (3):
+                                int divisor = Integer.parseInt(display.getText().toString());
 
-                            if (divisor == 0)
-                            {
-                                statusBar.setText("Div/0 Error!");
-                                display.setText("INF!");
-                                result = 0;
-                            }
-                            else result = operand1 / divisor;
-                            break;
+                                if (divisor == 0) {
+                                    statusBar.setText("Div/0 Error!");
+                                    display.setText("INF!");
+                                    result = 0;
+                                } else result = operand1 / divisor;
+                                break;
 
-                        default:
-                            result = 0; //In case things go bad.
+                            default:
+                                result = 0; //In case things go bad.
+                        }
+                        //Don't update the display if there was a div/0 error
+                        if (statusBar.getText().equals("Div/0 Error!") == false)
+                            display.setText(Integer.toString(result));
+                        op = -1;
+                        op1Set = false;
+                        calc = true;
                     }
-                    //Don't update the display if there was a div/0 error
-                    if(statusBar.getText().equals("Div/0 Error!") == false) display.setText(Integer.toString(result));
-                    op = -1;
-                    op1Set = false;
-                    calc = true;
+                    catch(NumberFormatException e)
+                    {
+                        statusBar.setText("Number too long to preform computations with!");
+                        display.setText("0");
+                    }
+
                 }
             }
         };
