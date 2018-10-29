@@ -11,6 +11,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import org.w3c.dom.Text;
+
 import edu.clarkson.ee408.R;
 
 public class MainActivity extends AppCompatActivity {
@@ -20,6 +22,7 @@ public class MainActivity extends AppCompatActivity {
     private MediaPlayer mp;
     private TextView display;
     private Button b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, bPlus, bMinus, bMult, bDiv, bClear, bEq;
+    private TextView statusBar;
 
     private static boolean op1Set=false;
     private static int operand1=0;
@@ -49,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
         bEq = (Button) findViewById(R.id.buttonEq);
 
         display = (TextView) findViewById(R.id.display);
+        statusBar = (TextView) findViewById(R.id.statusBar);
 
         View.OnClickListener lNum = new View.OnClickListener() {
             @Override
@@ -133,13 +137,22 @@ public class MainActivity extends AppCompatActivity {
                             break;
 
                         case (3):
-                            result = operand1 / Integer.parseInt(display.getText().toString());
+                            int divisor = Integer.parseInt(display.getText().toString());
+
+                            if (divisor == 0)
+                            {
+                                statusBar.setText("Div/0 Error!");
+                                display.setText("INF!");
+                                result = 0;
+                            }
+                            else result = operand1 / divisor;
                             break;
 
                         default:
                             result = 0; //In case things go bad.
                     }
-                    display.setText(Integer.toString(result));
+                    //Don't update the display if there was a div/0 error
+                    if(statusBar.getText().equals("Div/0 Error!") == false) display.setText(Integer.toString(result));
                     op = -1;
                     op1Set = false;
                     calc = true;
