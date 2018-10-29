@@ -82,7 +82,7 @@ public class MainActivity extends AppCompatActivity {
                 text = display.getText().toString() + b.getText().toString();
 
                 //Check for leading 0's
-                if(text.matches("0[1-9]")) text = text.substring(1);
+                if(text.matches("0[0-9]")) text = text.substring(1);
 
                 display.setText(text);
                 statusBar.setText("");
