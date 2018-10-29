@@ -66,6 +66,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String text;
                 text = display.getText().toString() + b.getText().toString();
+                if(text.equals("0")) text = "";
                 display.setText(text);
             }
         };
