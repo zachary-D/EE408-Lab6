@@ -146,6 +146,15 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
+        View.OnClickListener clearButton = new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                display.setText("");
+            }
+        };
+
         b0.setOnClickListener(lNum);
         b1.setOnClickListener(lNum);
         b2.setOnClickListener(lNum);
@@ -163,6 +172,8 @@ public class MainActivity extends AppCompatActivity {
         bDiv.setOnClickListener(lOp);
 
         bEq.setOnClickListener(lDo);
+
+        bClear.setOnClickListener(clearButton);
 
         // starts the music
         mp = MediaPlayer.create(this, R.raw.ocean_waves);
