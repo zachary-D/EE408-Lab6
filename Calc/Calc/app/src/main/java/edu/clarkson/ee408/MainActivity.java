@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
                 String text;
                 text = display.getText().toString() + b.getText().toString();
-                if(text.equals("0")) text = "";
+                if(text.matches("0[1-9]")) text = text.substring(1);
                 display.setText(text);
             }
         };
