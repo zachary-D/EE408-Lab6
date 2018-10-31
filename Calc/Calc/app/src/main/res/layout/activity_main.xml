@@ -179,11 +179,11 @@
         android:layout_width="159dp"
         android:layout_height="wrap_content"
         android:layout_alignStart="@+id/button2"
-        android:layout_alignTop="@+id/buttonLeftPara2"
+        android:layout_alignTop="@+id/buttonLeftPara"
         android:text=")" />
 
     <Button
-        android:id="@+id/buttonLeftPara2"
+        android:id="@+id/buttonLeftPara"
         android:layout_width="159dp"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

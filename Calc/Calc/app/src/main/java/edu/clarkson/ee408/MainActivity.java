@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity {
 
     private MediaPlayer mp;
     private TextView display;
-    private Button b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, bPlus, bMinus, bMult, bDiv, bClear, bEq;
+    private Button b0, b1, b2, b3, b4, b5, b6, b7, b8, b9, bPlus, bMinus, bMult, bDiv, bClear, bEq, bRPara, bLPara;
     private TextView statusBar;
 
     private static boolean op1Set=false;
@@ -53,6 +53,8 @@ public class MainActivity extends AppCompatActivity {
         bDiv = (Button) findViewById(R.id.buttonDiv);
         bClear = (Button) findViewById(R.id.buttonClear);
         bEq = (Button) findViewById(R.id.buttonEq);
+        bLPara = (Button) findViewById(R.id.buttonLeftPara);
+        bRPara = (Button) findViewById(R.id.buttonRightPara);
 
         display = (TextView) findViewById(R.id.display);
         statusBar = (TextView) findViewById(R.id.statusBar);
