@@ -173,4 +173,21 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentBottom="true" />
+
+    <Button
+        android:id="@+id/buttonRightPara"
+        android:layout_width="159dp"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/button2"
+        android:layout_alignTop="@+id/buttonLeftPara2"
+        android:text=")" />
+
+    <Button
+        android:id="@+id/buttonLeftPara2"
+        android:layout_width="159dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/display"
+        android:layout_marginBottom="51dp"
+        android:text="(" />
 </RelativeLayout>

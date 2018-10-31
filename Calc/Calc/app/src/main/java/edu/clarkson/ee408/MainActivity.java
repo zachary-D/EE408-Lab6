@@ -1,6 +1,9 @@
 package edu.clarkson.ee408;
 
 
+//OI!  Ignore overflow/underflow (-neg - neg = pos) parts of question, (or until the last thing)
+
+
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
