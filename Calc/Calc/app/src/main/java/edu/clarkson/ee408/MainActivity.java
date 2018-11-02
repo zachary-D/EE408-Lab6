@@ -32,6 +32,8 @@ public class MainActivity extends AppCompatActivity {
     private static int op=-1; // -1: no op; 0: +; 1:-;2:*;3:/
     private static boolean calc=false;
 
+    private static boolean lastWasError = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,57 @@ public class MainActivity extends AppCompatActivity {
 
         display = (TextView) findViewById(R.id.display);
         statusBar = (TextView) findViewById(R.id.statusBar);
+
+        View.OnClickListener charHandler = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (lastWasError) {
+                    lastWasError = false;
+                    display.setText("");
+                }
+                Button btn = (Button) v;
+                display.setText(display.getText().toString() + btn.getText().toString());
+            }
+        };
+
+        View.OnClickListener evaluate = new View.OnClickListener() {
+            @Override
+            public void onClick(View v)
+            {
+                if(display.getText().toString() == "") return;
+                statusBar.setText("");
+                try {
+
+                    //We set this now when there isn't actually an issue so we don't have to do it multiple times later.  If there is no exception, the display and the error flag is reset.
+                    //If there is an error, the 'try' block will be exited before the display and flags can be reset, and they will be in the correct state for the error.
+                    lastWasError = true;
+                    display.setText("Error!");
+
+                    int value = ParserII.DO(display.getText().toString());
+                    display.setText(Integer.toString(value));
+
+                    lastWasError = false;
+                }
+                catch (NumberFormatException e)
+                {
+                    statusBar.setText("Numbers too large to handle!");
+                }
+                catch (Exception e)
+                {
+                    if(e.getMessage().startsWith("malformed")) {
+                        //display.setText("Syntax error!");
+                        display.setText("Unable to evaluate expression!");
+                        statusBar.setText(e.getMessage());
+                    }
+                    else if(e.getMessage().endsWith("divide by zero")) {
+                        statusBar.setText("Unable to divide by 0!");
+                    }
+                    else {
+                        statusBar.setText("Generic error: " + e.getMessage());
+                    }
+                }
+            }
+        };
 
         View.OnClickListener lNum = new View.OnClickListener() {
             @Override
@@ -195,25 +248,30 @@ public class MainActivity extends AppCompatActivity {
             }
         };
 
-        b0.setOnClickListener(lNum);
-        b1.setOnClickListener(lNum);
-        b2.setOnClickListener(lNum);
-        b3.setOnClickListener(lNum);
-        b4.setOnClickListener(lNum);
-        b5.setOnClickListener(lNum);
-        b6.setOnClickListener(lNum);
-        b7.setOnClickListener(lNum);
-        b8.setOnClickListener(lNum);
-        b9.setOnClickListener(lNum);
+        b0.setOnClickListener(charHandler);
+        b1.setOnClickListener(charHandler);
+        b2.setOnClickListener(charHandler);
+        b3.setOnClickListener(charHandler);
+        b4.setOnClickListener(charHandler);
+        b5.setOnClickListener(charHandler);
+        b6.setOnClickListener(charHandler);
+        b7.setOnClickListener(charHandler);
+        b8.setOnClickListener(charHandler);
+        b9.setOnClickListener(charHandler);
 
-        bPlus.setOnClickListener(lOp);
-        bMinus.setOnClickListener(lOp);
-        bMult.setOnClickListener(lOp);
-        bDiv.setOnClickListener(lOp);
+        bPlus.setOnClickListener(charHandler);
+        bMinus.setOnClickListener(charHandler);
+        bMult.setOnClickListener(charHandler);
+        bDiv.setOnClickListener(charHandler);
 
-        bEq.setOnClickListener(lDo);
+
+
+        bRPara.setOnClickListener(charHandler);
+        bLPara.setOnClickListener(charHandler);
 
         bClear.setOnClickListener(clearButton);
+
+        bEq.setOnClickListener(evaluate);
 
         // starts the music
         mp = MediaPlayer.create(this, R.raw.ocean_waves);
