@@ -98,9 +98,9 @@ public class MainActivity extends AppCompatActivity {
                 catch (Exception e)
                 {
                     if(e.getMessage().startsWith("malformed")) {
-                        //display.setText("Syntax error!");
-                        display.setText("Unable to evaluate expression!");
-                        statusBar.setText(e.getMessage());
+                        display.setText("Syntax error!");
+                        statusBar.setText("Unable to evaluate expression!\n" + e.getMessage());
+                        //statusBar.setText(e.getMessage());
                     }
                     else if(e.getMessage().endsWith("divide by zero")) {
                         statusBar.setText("Unable to divide by 0!");
