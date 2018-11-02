@@ -77,16 +77,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v)
             {
-                if(display.getText().toString() == "") return;
+                //If there's no expression, don't try to process it
+                if(display.getText().toString() == "") {
+                    statusBar.setText("Not evaluating: blank expression");
+                    return;
+                }
                 statusBar.setText("");
                 try {
+                    String expr = display.getText().toString();
 
                     //We set this now when there isn't actually an issue so we don't have to do it multiple times later.  If there is no exception, the display and the error flag is reset.
                     //If there is an error, the 'try' block will be exited before the display and flags can be reset, and they will be in the correct state for the error.
                     lastWasError = true;
                     display.setText("Error!");
 
-                    int value = ParserII.DO(display.getText().toString());
+                    int value = ParserII.DO(expr);
                     display.setText(Integer.toString(value));
 
                     lastWasError = false;
@@ -245,6 +250,7 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v)
             {
                 display.setText("");
+                statusBar.setText("");
             }
         };
 
